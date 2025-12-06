@@ -6,8 +6,8 @@ const MusicPlayer = () => {
   const [showTooltip, setShowTooltip] = useState(true);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Birthday music URL (royalty-free happy birthday tune)
-  const musicUrl = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+  // Custom birthday song
+  const musicUrl = "/audio/happy-birthday.mp3";
 
   useEffect(() => {
     // Hide tooltip after 5 seconds
