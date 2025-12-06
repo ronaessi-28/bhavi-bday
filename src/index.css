@@ -373,3 +373,25 @@
 .photo-frame img {
   @apply w-full h-full object-cover rounded-xl;
 }
+
+/* Floating Balloon Animation */
+@keyframes float-balloon {
+  0% {
+    transform: translateY(0) rotate(-5deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) rotate(5deg);
+    opacity: 0;
+  }
+}
+
+.animate-float-balloon {
+  animation: float-balloon 15s ease-in-out infinite;
+}
