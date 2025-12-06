@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Cake, Sparkles, Star } from "lucide-react";
+import sisters1 from "@/assets/sisters-1.jpg";
+import sisters2 from "@/assets/sisters-2.jpg";
 
 const AgeCounter = () => {
   const [displayAge, setDisplayAge] = useState(0);
@@ -33,9 +35,33 @@ const AgeCounter = () => {
   }, [isVisible]);
 
   return (
-    <section className="relative py-16 px-4">
-      <div className={`max-w-2xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="relative bg-card-glass rounded-3xl p-8 md:p-12 shadow-glow border border-primary/20 text-center overflow-hidden">
+    <section className="relative py-16 px-4 overflow-hidden">
+      {/* Background Photos - Only for this section */}
+      <div className="absolute inset-0 z-0">
+        <div 
+          className="absolute left-0 top-0 w-1/2 h-full opacity-15"
+          style={{
+            backgroundImage: `url(${sisters1})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            maskImage: 'linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 100%)',
+          }}
+        />
+        <div 
+          className="absolute right-0 top-0 w-1/2 h-full opacity-15"
+          style={{
+            backgroundImage: `url(${sisters2})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            maskImage: 'linear-gradient(to left, rgba(0,0,0,0.6) 0%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,0.6) 0%, transparent 100%)',
+          }}
+        />
+      </div>
+
+      <div className={`max-w-2xl mx-auto transition-all duration-1000 relative z-10 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="relative bg-card-glass rounded-3xl p-8 md:p-12 shadow-glow border border-primary/20 text-center overflow-hidden backdrop-blur-sm">
           {/* Background Sparkles */}
           <div className="absolute inset-0 overflow-hidden">
             {[...Array(12)].map((_, i) => (

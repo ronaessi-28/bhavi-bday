@@ -1,5 +1,6 @@
 import { useConfetti } from "@/hooks/useConfetti";
 import FloatingElements from "@/components/FloatingElements";
+import FloatingBalloons from "@/components/FloatingBalloons";
 import Butterflies from "@/components/Butterflies";
 import HeroSection from "@/components/HeroSection";
 import AgeCounter from "@/components/AgeCounter";
@@ -9,7 +10,6 @@ import MemoriesSection from "@/components/MemoriesSection";
 import MadeWithLove from "@/components/MadeWithLove";
 import Footer from "@/components/Footer";
 import MusicPlayer from "@/components/MusicPlayer";
-import PDFDownload from "@/components/PDFDownload";
 
 const Index = () => {
   // Trigger confetti on page load
@@ -20,21 +20,20 @@ const Index = () => {
       {/* Floating Background Elements */}
       <FloatingElements />
       
+      {/* Floating Balloons */}
+      <FloatingBalloons />
+      
       {/* Butterflies */}
       <Butterflies />
 
-      {/* Main Content - wrapped for PDF capture */}
-      <main id="birthday-content" className="relative z-10">
+      {/* Main Content */}
+      <main className="relative z-10">
         <HeroSection />
         <AgeCounter />
         <CountdownTimer />
         <BirthdayMessage />
         <MemoriesSection />
         <MadeWithLove />
-        
-        {/* PDF Download Button */}
-        <PDFDownload targetId="birthday-content" />
-        
         <Footer />
       </main>
 
