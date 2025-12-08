@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState, useRef } from "react";
 import { X, ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -19,6 +19,14 @@ const PhotoLightbox = ({
   onPrev,
   onNext,
 }: PhotoLightboxProps) => {
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [swipeOffset, setSwipeOffset] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Minimum swipe distance for navigation
+  const minSwipeDistance = 50;
+
   // Handle keyboard navigation
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -56,13 +64,52 @@ const PhotoLightbox = ({
     };
   }, [isOpen]);
 
+  // Touch handlers for swipe gestures
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const currentTouch = e.targetTouches[0].clientX;
+    setTouchEnd(currentTouch);
+    
+    if (touchStart !== null) {
+      const offset = currentTouch - touchStart;
+      // Limit the offset for a rubber-band effect
+      setSwipeOffset(offset * 0.5);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) {
+      setSwipeOffset(0);
+      return;
+    }
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      onNext();
+    } else if (isRightSwipe) {
+      onPrev();
+    }
+
+    // Reset swipe state
+    setTouchStart(null);
+    setTouchEnd(null);
+    setSwipeOffset(0);
+  };
+
   if (!isOpen) return null;
 
   const currentPhoto = photos[currentIndex];
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
+      className="fixed inset-0 z-50 flex items-center justify-center touch-none"
       onClick={onClose}
     >
       {/* Backdrop */}
@@ -70,8 +117,12 @@ const PhotoLightbox = ({
 
       {/* Content */}
       <div
+        ref={containerRef}
         className="relative z-10 w-full h-full flex flex-col items-center justify-center p-4 md:p-8"
         onClick={(e) => e.stopPropagation()}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
         {/* Close Button */}
         <Button
@@ -83,7 +134,7 @@ const PhotoLightbox = ({
           <X size={28} />
         </Button>
 
-        {/* Navigation - Previous */}
+        {/* Navigation - Previous (hidden on mobile) */}
         <Button
           variant="ghost"
           size="icon"
@@ -91,12 +142,12 @@ const PhotoLightbox = ({
             e.stopPropagation();
             onPrev();
           }}
-          className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 z-20 text-primary-foreground hover:bg-primary-foreground/20 rounded-full w-12 h-12 md:w-14 md:h-14"
+          className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 z-20 text-primary-foreground hover:bg-primary-foreground/20 rounded-full w-12 h-12 md:w-14 md:h-14 hidden md:flex"
         >
           <ChevronLeft size={32} />
         </Button>
 
-        {/* Navigation - Next */}
+        {/* Navigation - Next (hidden on mobile) */}
         <Button
           variant="ghost"
           size="icon"
@@ -104,19 +155,32 @@ const PhotoLightbox = ({
             e.stopPropagation();
             onNext();
           }}
-          className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 z-20 text-primary-foreground hover:bg-primary-foreground/20 rounded-full w-12 h-12 md:w-14 md:h-14"
+          className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 z-20 text-primary-foreground hover:bg-primary-foreground/20 rounded-full w-12 h-12 md:w-14 md:h-14 hidden md:flex"
         >
           <ChevronRight size={32} />
         </Button>
 
-        {/* Image Container */}
-        <div className="relative max-w-5xl max-h-[80vh] w-full h-full flex items-center justify-center animate-scale-in">
+        {/* Image Container with swipe offset */}
+        <div 
+          className="relative max-w-5xl max-h-[80vh] w-full h-full flex items-center justify-center animate-scale-in transition-transform duration-150"
+          style={{ transform: `translateX(${swipeOffset}px)` }}
+        >
           <img
             src={currentPhoto.src}
             alt={currentPhoto.caption}
-            className="max-w-full max-h-full object-contain rounded-2xl shadow-glow"
-            onClick={(e) => e.stopPropagation()}
+            className="max-w-full max-h-full object-contain rounded-2xl shadow-glow select-none pointer-events-none"
+            draggable={false}
           />
+        </div>
+
+        {/* Swipe hint for mobile */}
+        <div className="absolute top-1/2 left-0 right-0 flex justify-between px-4 md:hidden pointer-events-none">
+          <div className="text-primary-foreground/40 animate-pulse">
+            <ChevronLeft size={24} />
+          </div>
+          <div className="text-primary-foreground/40 animate-pulse">
+            <ChevronRight size={24} />
+          </div>
         </div>
 
         {/* Caption */}
