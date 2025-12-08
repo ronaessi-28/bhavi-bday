@@ -6,7 +6,9 @@ import HeroSection from "@/components/HeroSection";
 import AgeCounter from "@/components/AgeCounter";
 import CountdownTimer from "@/components/CountdownTimer";
 import BirthdayMessage from "@/components/BirthdayMessage";
+import PhotoCarousel from "@/components/PhotoCarousel";
 import MemoriesSection from "@/components/MemoriesSection";
+import Guestbook from "@/components/Guestbook";
 import MadeWithLove from "@/components/MadeWithLove";
 import Footer from "@/components/Footer";
 import MusicPlayer from "@/components/MusicPlayer";
@@ -32,7 +34,9 @@ const Index = () => {
         <AgeCounter />
         <CountdownTimer />
         <BirthdayMessage />
+        <PhotoCarousel />
         <MemoriesSection />
+        <Guestbook />
         <MadeWithLove />
         <Footer />
       </main>
