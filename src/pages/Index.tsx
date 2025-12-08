@@ -12,6 +12,7 @@ import Guestbook from "@/components/Guestbook";
 import MadeWithLove from "@/components/MadeWithLove";
 import Footer from "@/components/Footer";
 import MusicPlayer from "@/components/MusicPlayer";
+import ShareButton from "@/components/ShareButton";
 
 const Index = () => {
   // Trigger confetti on page load
@@ -43,6 +44,9 @@ const Index = () => {
 
       {/* Music Player */}
       <MusicPlayer />
+
+      {/* Share Button */}
+      <ShareButton />
     </div>
   );
 };
