@@ -6,6 +6,7 @@ import HeroSection from "@/components/HeroSection";
 import AgeCounter from "@/components/AgeCounter";
 import CountdownTimer from "@/components/CountdownTimer";
 import BirthdayMessage from "@/components/BirthdayMessage";
+import BirthdayCake from "@/components/BirthdayCake";
 import PhotoCarousel from "@/components/PhotoCarousel";
 import MemoriesSection from "@/components/MemoriesSection";
 import Guestbook from "@/components/Guestbook";
@@ -13,6 +14,7 @@ import MadeWithLove from "@/components/MadeWithLove";
 import Footer from "@/components/Footer";
 import MusicPlayer from "@/components/MusicPlayer";
 import ShareButton from "@/components/ShareButton";
+import ViewCounter from "@/components/ViewCounter";
 
 const Index = () => {
   // Trigger confetti on page load
@@ -29,12 +31,16 @@ const Index = () => {
       {/* Butterflies */}
       <Butterflies />
 
+      {/* View Counter */}
+      <ViewCounter />
+
       {/* Main Content */}
       <main className="relative z-10">
         <HeroSection />
         <AgeCounter />
         <CountdownTimer />
         <BirthdayMessage />
+        <BirthdayCake />
         <PhotoCarousel />
         <MemoriesSection />
         <Guestbook />

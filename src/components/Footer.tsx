@@ -19,7 +19,11 @@ const Footer = () => {
         </p>
         
         <p className="font-dancing text-3xl md:text-4xl text-gradient font-semibold mb-8">
-          Happy Birthday, Bhavi!
+          Happy Birthday, Bhavi & Bhavya!
+        </p>
+
+        <p className="text-muted-foreground mb-4">
+          Wishes by Viney 💝
         </p>
 
         {/* Hearts Row */}

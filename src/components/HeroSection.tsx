@@ -22,12 +22,12 @@ const HeroSection = () => {
 
         {/* Main Heading */}
         <h1 className="font-dancing text-6xl md:text-8xl lg:text-9xl text-gradient mb-6 animate-fade-in-up animation-delay-100 leading-tight">
-          Happy Birthday, Bhavi!
+          Happy Birthday, Bhavi & Bhavya!
         </h1>
 
         {/* Subheading */}
         <p className="text-2xl md:text-3xl font-medium text-foreground/90 mb-4 animate-fade-in-up animation-delay-200">
-          You are the best sister ever{" "}
+          Both look good together, keep smiling{" "}
           <Heart className="inline text-accent fill-accent animate-pulse" size={28} />
         </p>
 
