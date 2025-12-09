@@ -12,7 +12,7 @@ const MadeWithLove = () => {
           <div className="flex items-center gap-3 relative z-10">
             <Sparkles className="text-primary-foreground" size={20} />
             <span className="font-medium text-lg text-primary-foreground">
-              Made with love by Bhavya
+              Made with love by Viney
             </span>
             <Heart className="text-primary-foreground fill-primary-foreground animate-pulse" size={20} />
           </div>

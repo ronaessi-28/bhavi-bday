@@ -16,7 +16,7 @@ const BirthdayMessage = () => {
         <div className="bg-card-glass rounded-3xl p-8 md:p-12 shadow-soft border border-primary/10 animate-fade-in-up">
           <div className="space-y-6 text-center">
             <p className="text-lg md:text-xl leading-relaxed text-foreground/90">
-              My dearest Bhavi,
+              My dearest Bhavi & Bhavya,
             </p>
             <p className="text-lg md:text-xl leading-relaxed text-foreground/80">
               On this magical day, I want you to know how incredibly special you are to me. 

@@ -35,6 +35,24 @@ export type Database = {
         }
         Relationships: []
       }
+      page_views: {
+        Row: {
+          created_at: string
+          id: string
+          view_count: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          view_count?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          view_count?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
