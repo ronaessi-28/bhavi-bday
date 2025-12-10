@@ -108,7 +108,7 @@ const AgeCounter = () => {
 
           {/* Text */}
           <h3 className="font-dancing text-3xl md:text-4xl text-foreground/90 mb-2 relative z-10">
-            Turning {targetAge} years old!
+            Turned {targetAge} years old!
           </h3>
           
           <p className="text-muted-foreground relative z-10">

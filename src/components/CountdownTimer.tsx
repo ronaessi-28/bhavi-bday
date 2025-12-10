@@ -14,11 +14,13 @@ const CountdownTimer = () => {
     isBirthday: boolean;
     timeLeft: TimeLeft;
     daysSince: number;
+    countdownToNext: TimeLeft;
   }>({
     isBeforeBirthday: false,
     isBirthday: false,
     timeLeft: { days: 0, hours: 0, minutes: 0, seconds: 0 },
     daysSince: 0,
+    countdownToNext: { days: 0, hours: 0, minutes: 0, seconds: 0 },
   });
 
   useEffect(() => {
@@ -28,6 +30,7 @@ const CountdownTimer = () => {
       
       // Birthday is December 9th
       let birthdayThisYear = new Date(currentYear, 11, 9, 0, 0, 0); // Month is 0-indexed
+      let nextBirthday = new Date(currentYear + 1, 11, 9, 0, 0, 0);
       
       // Check if today is the birthday
       const isToday = now.getMonth() === 11 && now.getDate() === 9;
@@ -38,6 +41,7 @@ const CountdownTimer = () => {
           isBirthday: true,
           timeLeft: { days: 0, hours: 0, minutes: 0, seconds: 0 },
           daysSince: 0,
+          countdownToNext: { days: 0, hours: 0, minutes: 0, seconds: 0 },
         });
         return;
       }
@@ -56,17 +60,26 @@ const CountdownTimer = () => {
           isBirthday: false,
           timeLeft: { days, hours, minutes, seconds },
           daysSince: 0,
+          countdownToNext: { days: 0, hours: 0, minutes: 0, seconds: 0 },
         });
       } else {
-        // Birthday has passed this year
+        // Birthday has passed this year - calculate countdown to next year
         const diff = now.getTime() - birthdayThisYear.getTime();
         const daysSince = Math.floor(diff / (1000 * 60 * 60 * 24));
+        
+        // Countdown to next birthday
+        const nextDiff = nextBirthday.getTime() - now.getTime();
+        const nextDays = Math.floor(nextDiff / (1000 * 60 * 60 * 24));
+        const nextHours = Math.floor((nextDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const nextMinutes = Math.floor((nextDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const nextSeconds = Math.floor((nextDiff % (1000 * 60)) / 1000);
 
         setTimeData({
           isBeforeBirthday: false,
           isBirthday: false,
           timeLeft: { days: 0, hours: 0, minutes: 0, seconds: 0 },
           daysSince,
+          countdownToNext: { days: nextDays, hours: nextHours, minutes: nextMinutes, seconds: nextSeconds },
         });
       }
     };
@@ -156,10 +169,11 @@ const CountdownTimer = () => {
     );
   }
 
-  // Days Since Birthday
+  // Days Since Birthday with Countdown to Next
   return (
     <section className="relative py-12 px-4">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-4xl mx-auto space-y-8">
+        {/* Days Since Birthday */}
         <div className="bg-card-glass rounded-3xl p-8 md:p-12 shadow-soft border border-primary/20 text-center">
           <div className="flex justify-center mb-6">
             <Gift className="text-primary animate-bounce-soft" size={40} />
@@ -179,7 +193,31 @@ const CountdownTimer = () => {
           </div>
           
           <p className="text-muted-foreground mt-4">
-            The birthday celebration continues! 🎉
+            The belated birthday celebration continues! 🎉
+          </p>
+        </div>
+
+        {/* Countdown to Next Birthday */}
+        <div className="bg-card-glass rounded-3xl p-8 shadow-soft border border-accent/20 text-center">
+          <div className="inline-flex items-center gap-2 bg-accent/10 rounded-full px-6 py-2 mb-6">
+            <Clock className="text-accent animate-pulse" size={20} />
+            <span className="text-sm font-medium text-foreground/80">Countdown to Next Birthday!</span>
+          </div>
+          
+          <h3 className="font-dancing text-2xl md:text-3xl text-gradient mb-6">
+            Turning 8 in...
+          </h3>
+
+          <div className="flex justify-center gap-3 md:gap-6 flex-wrap">
+            <TimeBox value={timeData.countdownToNext.days} label="Days" />
+            <TimeBox value={timeData.countdownToNext.hours} label="Hours" />
+            <TimeBox value={timeData.countdownToNext.minutes} label="Minutes" />
+            <TimeBox value={timeData.countdownToNext.seconds} label="Seconds" />
+          </div>
+
+          <p className="text-center text-muted-foreground mt-6 flex items-center justify-center gap-2">
+            <Calendar className="text-accent" size={16} />
+            December 9th, 2025
           </p>
         </div>
       </div>

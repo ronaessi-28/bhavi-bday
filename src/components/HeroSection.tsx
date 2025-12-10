@@ -22,7 +22,7 @@ const HeroSection = () => {
 
         {/* Main Heading */}
         <h1 className="font-dancing text-6xl md:text-8xl lg:text-9xl text-gradient mb-6 animate-fade-in-up animation-delay-100 leading-tight">
-          Happy Birthday, Bhavi & Bhavya!
+          Happy Belated Birthday, Bhavi & Bhavya!
         </h1>
 
         {/* Subheading */}
